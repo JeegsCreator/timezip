@@ -16,7 +16,7 @@ export default function RootLayout ({
 }) {
   return (
     <html lang='en'>
-      <body className={`h-full min-h-screen max-h-screen ${inter.className}`}>
+      <body className={`h-full min-h-screen max-h-screen max-w-screen ${inter.className}`}>
         <QueryClientComponent>
           {children}
         </QueryClientComponent>

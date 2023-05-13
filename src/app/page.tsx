@@ -43,13 +43,13 @@ export default function Home () {
   }, [selectedHour, selectedTimezones, getTimezone, data])
 
   return (
-    <div className='w-full h-full min-h-screen max-h-screen grid grid-rows-body'>
+    <div className='w-full max-w-screen h-full min-h-screen max-h-screen grid grid-rows-body'>
       <Header />
       <main className='h-full grid place-items-center w-full'>
         <div className='w-full'>
-          <section className='mb-6 flex items-center flex-col'>
-            <h1 className='text-6xl font-extrabold text-center mb-6'>TimeZip</h1>
-            <p className='text-lg text-center text-gray-600 w-2/5'>Show the world when find you. Select an hour and one or more countries to get his hours</p>
+          <section className='lg:mb-6 flex items-center flex-col'>
+            <h1 className='text-5xl lg:text-6xl font-extrabold text-center mb-6'>TimeZip</h1>
+            <p className='text-lg text-center text-gray-600 px-4 lg:w-2/5'>Show the world when find you. Select an hour and one or more countries to get his hours</p>
           </section>
           <section>
             <div className='flex justify-center gap-4'>
@@ -81,8 +81,8 @@ export default function Home () {
                 )
               })}
             </div>
-            <div className='flex justify-center mt-8'>
-              <div className='relative w-1/3 h-80 border border-slate-500 rounded-lg px-14 py-8 text-xl leading-7'>
+            <div className='flex px-4 justify-center mt-8'>
+              <div className='relative w-full lg:w-1/3 h-80 border border-slate-500 rounded-lg px-14 py-8 text-xl leading-7'>
                 <div ref={resultRef} className='h-full'>
                   {
                     (resultData.length > 0)
