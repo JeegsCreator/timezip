@@ -7,8 +7,8 @@ const Header = () => {
         <p className='font-bold text-2xl'>TimeZip</p>
       </div>
       <div className='flex gap-4'>
-        <a className='h-10 aspect-square border border-slate-400 rounded-full text-xl grid place-items-center' href='https://github.com/JhonnGutierrez/timezip'><GitHub /></a>
-        <a className='h-10 aspect-square border border-slate-400 rounded-full text-xl grid place-items-center' href='https://twitter.com/JeegsGutierrez'><Twitter /></a>
+        <a target='_blank' rel='noreferrer' className='h-10 aspect-square border border-slate-400 rounded-full text-xl grid place-items-center' href='https://github.com/JhonnGutierrez/timezip'><GitHub /></a>
+        <a target='_blank' rel='noreferrer' className='h-10 aspect-square border border-slate-400 rounded-full text-xl grid place-items-center' href='https://twitter.com/JeegsGutierrez'><Twitter /></a>
       </div>
     </header>
   )
