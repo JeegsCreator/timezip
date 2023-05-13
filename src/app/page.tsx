@@ -83,11 +83,13 @@ export default function Home () {
             </div>
             <div className='flex justify-center mt-8'>
               <div className='relative w-1/3 h-80 border border-slate-500 rounded-lg px-14 py-8 text-xl leading-7'>
-                <div ref={resultRef}>
+                <div ref={resultRef} className='h-full'>
                   {
-                    resultData.map((res, index) => (
-                      <ResultComponent key={index} emoji={res.emojis} hour={res.hour} />
-                    ))
+                    (resultData.length > 0)
+                      ? resultData.map((res, index) => (
+                        <ResultComponent key={index} emoji={res.emojis} hour={res.hour} />
+                      ))
+                      : <div className='w-full h-full grid place-items-center'><p className='text-slate-500 '>Add a timezone to start</p></div>
                   }
                 </div>
                 <div className='absolute top-4 right-4'>
