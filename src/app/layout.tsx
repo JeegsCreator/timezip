@@ -5,7 +5,7 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'TimeZap | Show the world when find you.',
+  title: 'TimeZip | Show the world when find you.',
   description: 'Show the world when find you. Select an hour and one or more countries to get his hours. Twitter transform timezone'
 }
 

@@ -63,7 +63,7 @@ export default function Home () {
               />
               <SelectTimezone data={data} />
             </div>
-            <div className='px-60 flex justify-center flex-wrap gap-2 mb-2 mt-6'>
+            <div className='md:px-20 lg:px-60 flex justify-center flex-wrap gap-2 mb-2 mt-6'>
               {selectedTimezones.map(zoneName => {
                 const zone = getTimezone(zoneName, data)
                 return (
