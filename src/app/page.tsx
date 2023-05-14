@@ -82,7 +82,7 @@ export default function Home () {
               })}
             </div>
             <div className='flex px-4 justify-center mt-8'>
-              <div className='relative w-full lg:w-1/3 h-80 border border-slate-500 rounded-lg px-14 py-8 text-xl leading-7'>
+              <div className='relative w-full lg:w-1/3 border border-slate-500 rounded-lg px-14 py-8 text-xl leading-7'>
                 <div ref={resultRef} className='h-full'>
                   {
                     (resultData.length > 0)
