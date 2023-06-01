@@ -1,36 +1,61 @@
 import { getFormatedHour } from '@/app/utils'
-import { Timezone, Zone } from '@/types/timezone'
+import { Country, Zone } from '@/types/timezone'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
+interface SelectedTimezones {
+  countryId: number // 2. see if the country is alredy selected ? create a new index : push data
+  countryName: string
+  countryCode: string
+  timezone: Zone
+}
+
 interface TimezoneState {
-  selectedTimezones: string[]
-  addTimezone: (zoneName: string) => void
-  removeTimezone: (zoneName: string) => void
-  getTimezone: (zoneName: string, data: Timezone | undefined) => Zone | undefined
+  selectedTimezones: SelectedTimezones[]
+  addTimezone: ({ country, zoneId }: { country: Country, zoneId: number }) => void
+  removeTimezone: (zoneId: number) => void
+  getTimezone: (zoneName: string, data: Country | undefined) => SelectedTimezones[]
 }
 
 export const useSelectedTimezones = create(persist<TimezoneState>((set, get) => ({
   selectedTimezones: [],
 
-  getTimezone: (zoneName: string, data: Timezone | undefined) => {
-    const index = data?.zones.findIndex(zone => zone.zoneName === zoneName)
-
-    if ((index === undefined) || (index === -1)) return undefined
-
-    return data?.zones[index]
+  getTimezone: (zoneId: string, data: Country | undefined) => {
+    // const index = data?.findIndex(zone => zone.zoneName === zoneName)
+    // if ((index === undefined) || (index === -1)) return undefined
+    // return data?[index]
+    return get().selectedTimezones
   },
 
-  addTimezone: (zoneName: string) => {
-    set({ selectedTimezones: [...get().selectedTimezones, zoneName] })
+  addTimezone: ({ country, zoneId }: { country: Country, zoneId: number }) => {
+    const selectedTimezones = get().selectedTimezones
+    const alreadyExistTimezoneInSelected = selectedTimezones.some(t => t.timezone.id === zoneId)
+
+    if (!alreadyExistTimezoneInSelected) {
+      const zone = country?.Timezone.find(z => z.id === zoneId)
+
+      if (country && zone) {
+        selectedTimezones.push({
+          countryCode: country?.countryCode,
+          countryId: country?.id,
+          countryName: country.countryName,
+          timezone: zone
+        })
+        set({ selectedTimezones })
+      } else {
+        throw new Error("country or zone doesn't exist")
+      }
+    } else {
+      throw new Error('Timezone already exist')
+    }
   },
 
-  removeTimezone: (zoneName: string) => {
-    set(() => {
-      const prev = get().selectedTimezones
-      const index = prev.findIndex(prevZoneName => prevZoneName === zoneName)
-      prev.splice(index, 1)
-      return { selectedTimezones: [...prev] }
+  removeTimezone: (zoneId: number) => {
+    set((prev) => {
+      const selectedTimezones = prev.selectedTimezones
+      const index = selectedTimezones.findIndex(prevZoneName => prevZoneName.timezone.id === zoneId)
+      selectedTimezones.splice(index, 1)
+      return { selectedTimezones }
     })
   }
 }),

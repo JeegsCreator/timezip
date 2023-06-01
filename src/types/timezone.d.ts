@@ -1,13 +1,16 @@
-export interface Timezone {
-  status: string
-  message: string
-  zones: Zone[]
+export interface Country {
+  id: number
+  countryCode: string
+  countryName: string
+  Timezone: Zone[]
 }
 
 export interface Zone {
-  countryCode: string
-  countryName: string
-  zoneName: string
-  gmtOffset: number
-  timestamp: number
+  id: number
+  initial: string
+  fullName: string
+  offset: number
+  summerOffset: number | null
+  capital: boolean
+  zoneNames: string[]
 }
