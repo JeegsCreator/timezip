@@ -1,12 +1,17 @@
-import QueryClientComponent from './QueryClientComponent'
+import { Toaster } from 'react-hot-toast'
 import './globals.css'
 import { Inter } from 'next/font/google'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+import CreatorTag from '@/components/CreatorTag'
+import favicon from '@/assets/Timezip_logo.png'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'TimeZip | Show the world when find you.',
-  description: 'Show the world when find you. Select an hour and one or more countries to get his hours. Twitter transform timezone'
+  description: 'Show the world when find you. Select an hour and one or more countries to get his hours. Twitter transform timezone',
+  icon: favicon
 }
 
 export default function RootLayout ({
@@ -16,10 +21,14 @@ export default function RootLayout ({
 }) {
   return (
     <html lang='en'>
-      <body className={`h-full min-h-screen max-h-screen max-w-screen ${inter.className}`}>
-        <QueryClientComponent>
+      <body className={`h-full min-h-screen ${inter.className}`}>
+        <Toaster />
+        <CreatorTag />
+        <div className='w-full max-w-screen h-full min-h-screen grid grid-rows-body'>
+          <Header />
           {children}
-        </QueryClientComponent>
+        </div>
+        <Footer />
       </body>
     </html>
   )

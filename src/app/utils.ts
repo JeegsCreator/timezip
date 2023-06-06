@@ -8,10 +8,10 @@ export function getFlagEmoji (countryCode: string) {
   return String.fromCodePoint(...codePoints)
 }
 
-export function getFormatedHour () {
-  const hour = new Date().getHours()
-  return `${hour}:00`
-}
+// export function getFormatedHour () {
+//   const hour = new Date().getHours()
+//   return `${hour}:00`
+// }
 
 export function formatTime (time: number) {
   const parseTime = String(time)
@@ -38,4 +38,18 @@ export const convertTimeZone = (selectedHour: string, fromUTMOffset: number) => 
 
 export function handleUndefined <type, returnType = void> (value: type | undefined, fallback: (value: type) => returnType) {
   if (value !== undefined) return fallback(value)
+}
+
+export function getTimezoneTime ({
+  date,
+  countryCode,
+  timeZone,
+  hourCycle
+}: {
+  date: Date
+  countryCode: string
+  timeZone: string
+  hourCycle: 'h12' | 'h11' | 'h23' | 'h24'
+}) {
+  return date.toLocaleString(`en-${countryCode}`, { timeZone, hourCycle })
 }

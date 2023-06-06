@@ -9,6 +9,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        text: '#030E1F',
+        primary: '#277EFF',
+        secondary: '#6254FF'
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
@@ -18,8 +23,11 @@ module.exports = {
         emoji: ['Noto Color Emoji', ...defaultTheme.fontFamily.sans]
       },
       gridTemplateRows: {
-        body: '3.5rem 1fr 3.5rem',
+        body: '3.5rem 1fr',
         popup: '2.5rem 1fr'
+      },
+      spacing: {
+        select: 'calc(100% - 40px)'
       }
     }
   },

@@ -1,13 +1,30 @@
-export interface Timezone {
-  status: string
-  message: string
-  zones: Zone[]
+import dayjs from 'dayjs'
+
+export interface Country {
+  id: number
+  countryCode: string
+  countryName: string
+  Timezone: Zone[]
 }
 
 export interface Zone {
-  countryCode: string
+  id: number
+  initial: string
+  fullName: string
+  offset: number
+  summerOffset: number | null
+  capital: boolean
+  zoneNames: string[]
+}
+
+export interface ResultData {
+  time: dayjs.Dayjs
+  timezones: SelectedTimezones[]
+}
+
+export interface SelectedTimezones {
+  countryId: number
   countryName: string
-  zoneName: string
-  gmtOffset: number
-  timestamp: number
+  countryCode: string
+  timezone: Zone
 }

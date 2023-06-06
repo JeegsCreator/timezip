@@ -3,3 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
+.ant-btn-primary{
+  background-color: #1677ff;
+}
+
