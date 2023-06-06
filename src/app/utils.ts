@@ -8,10 +8,10 @@ export function getFlagEmoji (countryCode: string) {
   return String.fromCodePoint(...codePoints)
 }
 
-export function getFormatedHour () {
-  const hour = new Date().getHours()
-  return `${hour}:00`
-}
+// export function getFormatedHour () {
+//   const hour = new Date().getHours()
+//   return `${hour}:00`
+// }
 
 export function formatTime (time: number) {
   const parseTime = String(time)

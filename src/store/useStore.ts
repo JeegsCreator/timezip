@@ -1,14 +1,8 @@
-import { getFormatedHour } from '@/app/utils'
-import { Country, Zone } from '@/types/timezone'
+import { Country, SelectedTimezones } from '@/types/timezone'
+import dayjs from 'dayjs'
+import { toast } from 'react-hot-toast'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-
-interface SelectedTimezones {
-  countryId: number // 2. see if the country is alredy selected ? create a new index : push data
-  countryName: string
-  countryCode: string
-  timezone: Zone
-}
 
 interface TimezoneState {
   selectedTimezones: SelectedTimezones[]
@@ -35,28 +29,30 @@ export const useSelectedTimezones = create(persist<TimezoneState>((set, get) => 
       const zone = country?.Timezone.find(z => z.id === zoneId)
 
       if (country && zone) {
-        selectedTimezones.push({
-          countryCode: country?.countryCode,
-          countryId: country?.id,
+        const newTimezone = {
+          countryCode: country.countryCode,
+          countryId: country.id,
           countryName: country.countryName,
           timezone: zone
-        })
-        set({ selectedTimezones })
+        }
+        set((state) => ({
+          selectedTimezones: [...state.selectedTimezones, newTimezone]
+        }))
+        toast.success('Timezone added')
       } else {
-        throw new Error("country or zone doesn't exist")
+        toast.error("country or zone doesn't exist")
+        // throw new Error("country or zone doesn't exist")
       }
     } else {
-      throw new Error('Timezone already exist')
+      toast.error('Timezone already selected')
+      // throw new Error('Timezone already exist')
     }
   },
 
   removeTimezone: (zoneId: number) => {
-    set((prev) => {
-      const selectedTimezones = prev.selectedTimezones
-      const index = selectedTimezones.findIndex(prevZoneName => prevZoneName.timezone.id === zoneId)
-      selectedTimezones.splice(index, 1)
-      return { selectedTimezones }
-    })
+    set((state) => ({
+      selectedTimezones: [...state.selectedTimezones.filter(t => t.timezone.id !== zoneId)]
+    }))
   }
 }),
 {
@@ -67,13 +63,41 @@ export const useSelectedTimezones = create(persist<TimezoneState>((set, get) => 
 interface SelectedHour {
   selectedHour: string
   setSelectedHour: (newHour: string) => void
+  timeValue: string
+  setTimeValue: (newHour: string) => void
+  dateValue: string
+  setDateValue: (newHour: string) => void
+  usingDate: boolean
+  setUsingDate: (newHour: boolean) => void
+  timeFormat: boolean
+  setTimeFormat: (newHour: boolean) => void
 }
 
-export const useSelectedHour = create(persist<SelectedHour>((set, get) => ({
-  selectedHour: getFormatedHour(),
-  setSelectedHour: (newHour: string) => set({ selectedHour: newHour })
+export const useSelectedHour = create(persist<SelectedHour>((set) => ({
+  selectedHour: '',
+  setSelectedHour: (newHour: string) => set({ selectedHour: newHour }),
+  timeValue: '',
+  setTimeValue: (newHour: string) => set({ timeValue: newHour }),
+  dateValue: dayjs().format(),
+  setDateValue: (newHour: string) => set({ dateValue: newHour }),
+  usingDate: false,
+  setUsingDate: (newHour: boolean) => set({ usingDate: newHour }),
+  timeFormat: false,
+  setTimeFormat: (newHour: boolean) => set({ timeFormat: newHour })
 }),
 {
   name: 'selected-hour'
 }
 ))
+
+interface Template {
+  template: string
+  setTemplate: (newTemplate: string) => void
+}
+
+export const useTemplate = create(persist<Template>((set) => ({
+  template: '@(emoji) @(time-H:mm)',
+  setTemplate: (newTemplate: string) => set({ template: newTemplate })
+}), {
+  name: 'template'
+}))

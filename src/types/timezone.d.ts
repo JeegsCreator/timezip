@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 export interface Country {
   id: number
   countryCode: string
@@ -13,4 +15,16 @@ export interface Zone {
   summerOffset: number | null
   capital: boolean
   zoneNames: string[]
+}
+
+export interface ResultData {
+  time: dayjs.Dayjs
+  timezones: SelectedTimezones[]
+}
+
+export interface SelectedTimezones {
+  countryId: number
+  countryName: string
+  countryCode: string
+  timezone: Zone
 }
