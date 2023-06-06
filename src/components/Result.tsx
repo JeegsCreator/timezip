@@ -30,7 +30,6 @@ const Result = () => {
         res[isStackable].timezones.push(zone)
       }
     })
-    console.log(res)
     setResultData(res)
     // convertTimeZone(selectedHour, 7200)
   }, [selectedTimezones, selectedHour])

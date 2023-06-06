@@ -78,8 +78,6 @@ export default function Home () {
     // else {
     //   setSelectedHour('')
     // }
-
-    console.log('selected', selected)
   }, [timeValue, dateValue, usingDate, setSelectedHour, selectedHour.length])
 
   useEffect(() => {

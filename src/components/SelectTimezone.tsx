@@ -72,19 +72,26 @@ const SelectTimezone = ({ data }: { data: Country[] | undefined }) => {
               <button onClick={() => setIsOpen(false)} className='absolute h-10 w-16 text-slate-600 text-2xl top-0 right-0 font-bold border-l border-slate-400 grid place-items-center lg:opacity-0 lg:hidden'><Close /></button>
             </div>
             <div className='h-full overflow-y-auto overflow-x-hidden'>
-              {data?.map((country) => (
-                <button
-                  key={country.id}
-                  onClick={() => { addTimezone({ country, zoneId: country.Timezone[0].id }) }}
-                  className='border-b border-slate-400 w-full px-4 py-2 flex justify-between items-center'
-                >
-                  <div className='text-left'>
-                    <p>{country.countryName}</p>
-                    <p className='text-sm text-slate-500'>{country.countryCode}</p>
-                  </div>
-                  <p className='font-emoji text-2xl'>{getFlagEmoji(country.countryCode)}</p>
-                </button>
-              ))}
+              {searchedData?.map((country) => {
+                if (country.Timezone.length > 1) {
+                  return (
+                    <SelectTimezoneOption key={country.id} country={country} addTimezone={addTimezone} />
+                  )
+                } else {
+                  return (
+                    <button
+                      key={country.id}
+                      onClick={() => { addTimezone({ country, zoneId: country.Timezone[0].id }) }}
+                      className='border-b border-slate-400 w-full px-4 py-2 flex gap-4 items-center'
+                    >
+                      <p className='font-emoji text-2xl'>{getFlagEmoji(country.countryCode)}</p>
+                      <div className='text-left'>
+                        <p>{country.countryName}</p>
+                      </div>
+                    </button>
+                  )
+                }
+              })}
             </div>
           </div>
         </Popup>
