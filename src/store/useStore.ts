@@ -56,7 +56,7 @@ export const useSelectedTimezones = create(persist<TimezoneState>((set, get) => 
   }
 }),
 {
-  name: 'selected-countries'
+  name: '2-selected-countries'
 }
 ))
 
@@ -86,7 +86,7 @@ export const useSelectedHour = create(persist<SelectedHour>((set) => ({
   setTimeFormat: (newHour: boolean) => set({ timeFormat: newHour })
 }),
 {
-  name: 'selected-hour'
+  name: '2-selected-hour'
 }
 ))
 
@@ -99,5 +99,5 @@ export const useTemplate = create(persist<Template>((set) => ({
   template: '@(emoji) @(time-H:mm)',
   setTemplate: (newTemplate: string) => set({ template: newTemplate })
 }), {
-  name: 'template'
+  name: '2-template'
 }))
