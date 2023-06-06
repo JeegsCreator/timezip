@@ -24,13 +24,12 @@ const TemplateResult = ({ info, template }: { info: ResultData, template: string
         return info.time.format(format)
       } else {
         let dayDelay: string
-        console.log(selectedTime.day(), info.time.day())
         if (((selectedTime.day() !== 6 || info.time.day() === 5) && (selectedTime.day() > info.time.day())) || ((selectedTime.day() === 0) && (info.time.day() === 6))) {
           dayDelay = '(Previous day)'
         } else if ((selectedTime.day() < info.time.day()) || ((selectedTime.day() === 6) && (info.time.day() === 0))) {
           dayDelay = '(Next day)'
         } else {
-          dayDelay = 'else'
+          dayDelay = ''
         }
 
         return `${dayDelay} ${info.time.format(format)}`
