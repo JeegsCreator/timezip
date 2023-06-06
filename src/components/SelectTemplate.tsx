@@ -16,8 +16,8 @@ const SelectTemplate = () => {
   const { template, setTemplate } = useTemplate()
   const { selectedHour } = useSelectedHour()
   const [isOpen, setIsOpen] = useState(false)
-
-  const info: ResultData = { time: dayjs(selectedHour), timezones: [{ countryCode: 'CO', countryId: 79, countryName: 'Colombia', timezone: { id: 141, initial: 'CO', fullName: 'Colombia', offset: -5, summerOffset: null, capital: true, zoneNames: ['America/Bogota'] } }] }
+  const time = dayjs(selectedHour).isValid() ? dayjs(selectedHour) : dayjs()
+  const info: ResultData = { time, timezones: [{ countryCode: 'CO', countryId: 79, countryName: 'Colombia', timezone: { id: 141, initial: 'CO', fullName: 'Colombia', offset: -5, summerOffset: null, capital: true, zoneNames: ['America/Bogota'] } }] }
 
   const Trigger = () => (
     <button onClick={() => setIsOpen(true)} className='relative cursor-pointer w-64 md:w-80 rounded-md border border-slate-400 h-10 flex items-center'>
