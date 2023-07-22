@@ -150,9 +150,11 @@ export default function Home() {
                       getFlagEmoji,
                     )}
                   </span>
-                  <span className='whitespace-nowrap'>{`${
-                    isReduced ? zone.countryCode : zone.countryName
-                  } ${!isReduced ? `(${zone.timezone.initial})` : ''}`}</span>
+                  <span className='whitespace-nowrap'>
+                    {`${isReduced ? zone.countryCode : zone.countryName} ${
+                      !isReduced ? `(${zone.timezone.initial})` : ''
+                    }`}
+                  </span>
                   <span className='absolute opacity-0 group-hover:opacity-100 transition-opacity h-full w-full left-0 right-0 flex items-center justify-center text-red-700 bg-[#fffa]'>
                     <Remove />
                   </span>
