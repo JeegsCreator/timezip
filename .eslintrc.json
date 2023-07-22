@@ -1,11 +1,17 @@
 {
-  "extends": ["next/core-web-vitals", "./node_modules/ts-standard/eslintrc.json"],
+  "extends": [
+    "next/core-web-vitals",
+    "./node_modules/ts-standard/eslintrc.json",
+    "eslint-config-prettier"
+  ],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
   "rules": {
     "@typescript-eslint/no-floating-promises": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/strict-boolean-expressions": "off"
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/space-before-function-paren": "off",
+    "@typescript-eslint/comma-dangle": "off"
   }
 }
