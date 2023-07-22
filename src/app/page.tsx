@@ -31,8 +31,9 @@ import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
 import Result from '@/components/Result'
 import SelectTemplate from '@/components/SelectTemplate'
+import Analytics from '@/components/Analytics'
 
-export default function Home () {
+export default function Home() {
   const { selectedTimezones, removeTimezone } = useSelectedTimezones()
   const {
     selectedHour,
@@ -44,7 +45,7 @@ export default function Home () {
     timeFormat,
     setTimeFormat,
     usingDate,
-    setUsingDate
+    setUsingDate,
   } = useSelectedHour()
   const [data, setData] = useState<Country[]>([])
 
@@ -68,7 +69,10 @@ export default function Home () {
     if (usingDate) {
       const time = dayjs(timeValue)
       const date = dayjs(dateValue)
-      selected = (time.isValid() && date.isValid()) ? date.hour(time.hour()).minute(time.minute()).format() : ''
+      selected =
+        time.isValid() && date.isValid()
+          ? date.hour(time.hour()).minute(time.minute()).format()
+          : ''
     } else {
       const time = dayjs(timeValue)
       selected = time.isValid() ? dayjs(timeValue).format() : ''
@@ -91,9 +95,12 @@ export default function Home () {
 
   return (
     <main className='h-full grid place-items-center w-screen lg:w-full py-4'>
+      <Analytics />
       <div className='w-screen lg:w-full'>
         <section className='lg:mb-6 flex items-center flex-col'>
-          <h1 className='text-5xl lg:text-6xl font-extrabold text-center mb-6'>TimeZip</h1>
+          <h1 className='text-5xl lg:text-6xl font-extrabold text-center mb-6'>
+            TimeZip
+          </h1>
         </section>
         <section>
           <div className='flex justify-center gap-4'>
@@ -108,10 +115,12 @@ export default function Home () {
             />
             <div className='relative'>
               <DatePicker
-                value={dayjs(dateValue).isValid() ? dayjs(dateValue) : undefined}
+                value={
+                  dayjs(dateValue).isValid() ? dayjs(dateValue) : undefined
+                }
                 size='large'
                 disabled={!usingDate}
-                onChange={(value) => setDateValue((value ? value.format() : ''))}
+                onChange={(value) => setDateValue(value ? value.format() : '')}
               />
               <div className='absolute left-0 -bottom-5 flex items-center gap-1'>
                 <Switch
@@ -125,16 +134,25 @@ export default function Home () {
             </div>
           </div>
           <div className='md:px-20 lg:px-64 px-2 flex justify-center flex-wrap gap-2 mb-4 mt-12'>
-            {selectedTimezones.map(zone => {
+            {selectedTimezones.map((zone) => {
               const isReduced = selectedTimezones.length > 10
               return (
                 <button
                   key={zone.timezone.id}
                   onClick={() => removeTimezone(zone.timezone.id)}
-                  className={`relative group h-8 border border-slate-400 rounded-full px-4 flex items-center overflow-hidden ${isReduced ? ' gap-1' : ' gap-2'}`}
+                  className={`relative group h-8 border border-slate-400 rounded-full px-4 flex items-center overflow-hidden ${
+                    isReduced ? ' gap-1' : ' gap-2'
+                  }`}
                 >
-                  <span className='font-emoji'>{handleUndefined<string, string>(zone?.countryCode, getFlagEmoji)}</span>
-                  <span className='whitespace-nowrap'>{`${isReduced ? zone.countryCode : zone.countryName} ${!isReduced ? `(${zone.timezone.initial})` : ''}`}</span>
+                  <span className='font-emoji'>
+                    {handleUndefined<string, string>(
+                      zone?.countryCode,
+                      getFlagEmoji,
+                    )}
+                  </span>
+                  <span className='whitespace-nowrap'>{`${
+                    isReduced ? zone.countryCode : zone.countryName
+                  } ${!isReduced ? `(${zone.timezone.initial})` : ''}`}</span>
                   <span className='absolute opacity-0 group-hover:opacity-100 transition-opacity h-full w-full left-0 right-0 flex items-center justify-center text-red-700 bg-[#fffa]'>
                     <Remove />
                   </span>
@@ -161,6 +179,5 @@ export default function Home () {
         </section>
       </div>
     </main>
-
   )
 }
